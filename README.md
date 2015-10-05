@@ -87,7 +87,7 @@ app.listen(process.env.PORT || 3000);
 ```bash
 # change directory into the directory you want `glintcms-starter-glintcms` to be created
 git clone https://github.com/glintcms/glintcms-starter-glintcms && cd glintcms-starter-glintcms
-npm run prepublish && npm install && npm run install-local
+npm run init
 ```
 
 #### run

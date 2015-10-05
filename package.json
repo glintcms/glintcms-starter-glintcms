@@ -22,6 +22,7 @@
   "scripts": {
     "prepublish": "npm run link-local",
     "version": "NODE_ENV=production && npm run assets && npm run build",
+    "init": "npm install assets-bundler && npm run prepublish && npm install && npm run install-local",
     "install-local": "ls -d1 $(pwd)/node_modules/{page,widget,wrap}-*/ | xargs -L 1 bash -c 'cd \"$0\" && pwd && npm install'",
     "install-linked": "find $(pwd)/node_modules -type l -maxdepth 1 | xargs -L 1 bash -c 'cd \"$0\" && pwd && npm install'",
     "link-local": "assets-bundler --src './lib/*' --dest './node_modules/*'",
