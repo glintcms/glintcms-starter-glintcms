@@ -29,11 +29,11 @@
     "link-glint": "assets-bundler --src '../glint-*' --dest 'node_modules/glint-*'",
     "cleanup": "rm -rf node_modules/ && rm -rf lib/*/node_modules/",
     "assets": "rm -rf public/assets/ && assets-bundler --src node_modules/:module/public --dest public/assets/:module",
-    "build": "if [ \"$NODE_ENV\" == \"development\" ]; then browserify browser.js -o public/build/bundle.js --debug; else browserify -t envify -g [ uglifyify -x .js ] browser.js -o public/build/bundle.js; fi",
+    "build": "npm run assets; if [ \"$NODE_ENV\" == \"development\" ]; then browserify browser.js -o public/build/bundle.js --debug; else browserify -t envify -g [ uglifyify -x .js ] browser.js -o public/build/bundle.js; fi",
     "watch": "watchify -t [ envify purge ] -t [brfs] browser.js -o public/build/bundle.js --debug &",
     "minify": "cat public/build/bundle.js | uglifyjs -o public/build/bundle.min.js",
     "www": "export NODE_ENV=development && npm run assets && npm run watch && nodemon -e js,ejs,dot start.js",
-    "start": "if [ -z $NODE_ENV ]; then NODE_ENV=production; fi; echo NODE_ENV=$NODE_ENV && npm run assets && npm run build && node start"
+    "start": "if [ -z $NODE_ENV ]; then NODE_ENV=production; fi; echo NODE_ENV=$NODE_ENV && npm run build && node start"
   },
   "bundledDependencies": [
     "page-adapter",
