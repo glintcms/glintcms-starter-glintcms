@@ -35,14 +35,13 @@
     "start": "if [ -z $NODE_ENV ]; then NODE_ENV=production; fi; echo NODE_ENV=$NODE_ENV && npm run assets && npm run build && node start"
   },
   "bundledDependencies": [
-    "page-home",
     "page-adapter",
     "page-auth",
     "page-auth-access",
     "page-contact",
     "page-error",
     "page-filemanager",
-    "page-meta",
+    "page-main",
     "page-upload",
     "widget-menu",
     "wrap-layout"
