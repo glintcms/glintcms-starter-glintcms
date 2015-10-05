@@ -1,0 +1,99 @@
+<div id="navigation">
+  <div class="vertical-middle">
+    <div class="vertical-middle-inner">
+      <div class="main-nav">
+        <a id="hidemenu" href="#"><i class="fa fa-times-circle fa-2x"></i></a>
+        <ul>
+
+          <!--slides menu items-->
+          {{ Object.keys(it.slides).forEach(function(id){ var slide = it.slides[id]; }}
+          <li><a href="/{{=id}}" data-id="{{=id}}">{{=slide.name}}</a></li>
+          {{ }); }}
+
+          <!--user-->
+          {{? it.user }}
+
+          <li>
+            <a href="/account">
+              {{? it.user.profilePicture }}
+              <img src="{{= it.user.profilePicture}}">
+              {{??}}
+              <img src="{{= it.gravatar(it.user, 60) }}" class="nav-avatar">
+              <!--{{= it.user.profileName || it.user.email || it.user.id }}-->
+              {{?}}
+              <span class="js-account">Account</span>
+            </a>
+          </li>
+
+          <li><a href="/logout">
+            <span class="glyphicon glyphicon-off"></span>
+            <span class="js-logout">Logout</span>
+          </a>
+          </li>
+          <li class="divider"></li>
+          <li><a href="/filemanager">
+            <span class="glyphicon glyphicon-folder-open"></span>
+            <span class="js-filemanager">Filemanager</span>
+          </a>
+          </li>
+          <li><a href="/upload">
+            <span class="glyphicon glyphicon-cloud-upload"></span>
+            <span class="js-upload">Upload</span>
+          </a>
+          </li>
+
+
+          <!--no user-->
+          {{??}}
+
+          <!-- login menu item -->
+          <li><a href="/signin" class="js-login">Login</a></li>
+
+          {{?}}
+
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+<!--/#navigation-->
+
+<section id="page-main">
+
+  <div class="container">
+
+    <div class="vertical-middle">
+      <div class="vertical-middle-inner">
+
+        <div id="page-slider" class="carousel slide" data-interval="false">
+
+          <div class="slider-nav" style="display: none;">
+            <!-- slide indicator/ page navigation dots -->
+            <ol class="carousel-indicators">
+
+              {{ Object.keys(it.slides).forEach(function(id){ var slide = it.slides[id]; }}
+              <li data-target="#page-slider" data-slide-to="{{=slide.number}}" class="{{=it.active[id]}}"></li>
+              {{ }); }}
+
+            </ol>
+
+            <!-- slide left, right arrows navigation -->
+            <a class="page-main-left hidden-xs" href="#page-slider" data-slide="prev"><i class="fa fa-chevron-left"></i></a>
+            <a class="page-main-right hidden-xs" href="#page-slider" data-slide="next"><i class="fa fa-chevron-right"></i></a>
+          </div>
+
+          <div class="carousel-inner">
+
+            {{= it.content }}
+
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+    <!--/.carousel-inner-->
+
+  </div>
+
+</section>

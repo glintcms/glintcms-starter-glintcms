@@ -1,0 +1,162 @@
+<!--home-->
+<div id="home" class="item {{= it.active['home'] }}">
+
+  <!--home-header-->
+  <div class="row">
+
+    <div class="col-md-6">
+      <h2 class="page-header" data-id="home-title">{{= it['home-title'] }}</h2>
+
+      <div class="lead" data-id="home-subtitle">
+        {{= it['home-subtitle'] }}
+      </div>
+
+    </div>
+
+    <div class="col-md-6">
+      <div data-id="home-teaser">{{= it['home-teaser']}}</div>
+    </div>
+
+  </div>
+  <!--/home-header-->
+
+  <!--home-content-->
+  <div class="row">
+
+    <div class="divider clearfix"></div>
+
+    <!--home-content-left-->
+    <div class="col-sm-6">
+
+      <div class="box" data-id="home-box-1">
+        {{= it['home-box-1'] }}
+      </div>
+
+      <div class="box" data-id="home-box-2">
+        {{= it['home-box-2'] }}
+      </div>
+
+      <div class="box hidden" data-id="home-box-3">
+        {{= it['home-box-3'] }}
+      </div>
+
+    </div>
+
+    <!--home-content-right-->
+    <div class="col-sm-6">
+
+      <div class="box" data-id="home-box-4">
+        {{= it['home-box-4'] }}
+      </div>
+
+      <div class="box" data-id="home-box-5">
+        {{= it['home-box-5'] }}
+      </div>
+
+      <div class="box" data-id="home-box-6">
+        {{= it['home-box-6'] }}
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+<!--/home-content-->
+
+<!--works-with-what-->
+<div id="works-with-what" class="item {{= it.active['works-with-what'] }}">
+
+  <div class="text-center">
+    <h2 class="page-header" data-id="www-title">Works With What</h2>
+  </div>
+
+  <div class="row" data-id="www-content">
+    {{= it['www-content'] }}
+  </div>
+
+</div>
+<!--/works-with-what-->
+
+<!--building-blocks-->
+<div id="building-blocks" class="item {{= it.active['building-blocks'] }}">
+
+  <div class="text-center">
+    <h2 class="page-header" data-id="bb-title">
+      {{= it['bb-title'] }}
+    </h2>
+  </div>
+
+  <div class="row" data-id="bb-content">
+    {{= it['bb-content'] }}
+  </div>
+
+</div>
+<!--/building-blocks-->
+
+<!--documentation-->
+<div id="documentation" class="item {{= it.active['documentation'] }}">
+
+  <div class="text-center">
+    <h2 class="page-header" data-id="doc-title">
+      {{= it['doc-title'] }}
+    </h2>
+  </div>
+
+  <div class="row" data-id="doc-content">
+    {{= it['doc-content'] }}
+  </div>
+
+</div>
+<!--/documentation-->
+
+<!--screenshots-->
+<div id="screenshots" class="item {{= it.active['screenshots'] }}">
+
+  <div class="text-center">
+    <h2 class="page-header" data-id="img-title">
+      {{= it['img-title'] }}
+    </h2>
+  </div>
+
+  <div data-id="img-content">
+    {{= it['img-content'] }}
+  </div>
+
+</div>
+<!--/screenshots-->
+
+<!--contact-->
+<div id="contact" class="item {{= it.active['contact'] }}">
+
+  <div class="text-center">
+    <h2 class="page-header" data-id="contact-title">
+      {{= it['contact-title'] }}
+    </h2>
+  </div>
+
+  <form class="js-contact-form" method="POST"><input type="hidden" name="_csrf">
+
+    <div class="col-sm-8 col-sm-offset-2">
+      <div class="form-group">
+        <label for="subject" class="control-label">Subject</label>
+        <input class="form-control js-subject" type="subject" name="subject" autofocus="autofocus" placeholder="Inquiry">
+      </div>
+      <div class="form-group">
+        <label for="message" class="control-label">Message</label>
+        <textarea class="form-control js-message" type="message" name="message" rows="10" placeholder="Please get back to me."></textarea>
+      </div>
+      <div class="form-group">
+        <a type="submit" class="js-contact-button btn btn-transparent" href="#">
+          <span class="glyphicon glyphicon-envelope"></span>Send Email
+        </a>
+      </div>
+
+    </div>
+  </form>
+
+  <div class="clearfix"></div>
+
+</div>
+<!--/contact-->
+
