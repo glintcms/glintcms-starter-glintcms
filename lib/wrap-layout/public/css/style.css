@@ -14,11 +14,12 @@ body {
 
 body,
 .preloader {
-  background: -webkit-linear-gradient(90deg, #771d1d 10%, #c8441b 90%); /* Chrome 10+, Saf5.1+ */
-  background: -moz-linear-gradient(90deg, #771d1d 10%, #c8441b 90%); /* FF3.6+ */
-  background: -ms-linear-gradient(90deg, #771d1d 10%, #c8441b 90%); /* IE10 */
-  background: -o-linear-gradient(90deg, #771d1d 10%, #c8441b 90%); /* Opera 11.10+ */
-  background: linear-gradient(90deg, #771d1d 10%, #c8441b 90%); /* W3C */
+
+  background: -webkit-linear-gradient(90deg, #771d1d 10%, #c8441b 90%) fixed no-repeat; /* Chrome 10+, Saf5.1+ */
+  background: -moz-linear-gradient(90deg, #771d1d 10%, #c8441b 90%) fixed no-repeat; /* FF3.6+ */
+  background: -ms-linear-gradient(90deg, #771d1d 10%, #c8441b 90%) fixed no-repeat; /* IE10 */
+  background: -o-linear-gradient(90deg, #771d1d 10%, #c8441b 90%) fixed no-repeat; /* Opera 11.10+ */
+  background: linear-gradient(90deg, #771d1d 10%, #c8441b 90%) fixed no-repeat; /* W3C */
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -81,6 +82,11 @@ pre {
 pre > code {
   white-space: pre;
 }
+
+div.item.active pre {
+  width: 100%;
+}
+
 
 code {
   color: #ff1025;
@@ -412,22 +418,25 @@ form.dropzone {
   background: rgba(255, 255, 255, 0.21);
 }
 
-
 /************************************
 *******Works With What Page CSS******
 ************************************/
-
 
 #works-with-what table {
   width: 100% !important;
 }
 
-
 #works-with-what table td {
   width: 50% !important;
   padding: 10px !important;
+  margin-top: auto;
+  margin-bottom: auto;
+  vertical-align: top;
 }
 
+#works-with-what img {
+  height: auto !important;
+}
 
 /*************************
 *****Contact Page CSS*****
@@ -510,6 +519,41 @@ textarea.form-control {
   #header .container {
     width: 188px;
   }
+
+  h1, h2, h3, h4, h5, h6 {
+    word-wrap: break-word;
+    word-break: normal;
+  }
+
+  .page-header {
+    font-size: 32px;
+    line-height: 32px;
+    border: 0;
+    padding: 0;
+    margin-top: 0;
+    font-weight: 700;
+    margin-bottom: 30px;
+  }
+
+  .main-nav {
+    margin-top: 32px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 80%;
+    text-align: center;
+    font-size: 28px;
+  }
+
+  #works-with-what img {
+    max-height: 80px !important;
+  }
+
+  #works-with-what table td {
+    margin-top: auto;
+    margin-bottom: auto;
+    vertical-align: text-bottom;
+  }
+
 }
 
 @media (min-width: 768px) {
@@ -528,6 +572,15 @@ textarea.form-control {
   .container {
     width: 1140px;
   }
+}
+
+img,
+input,
+textarea,
+code,
+pre,
+h1, h2, h3, h4, h5, h6 {
+  max-width: 100%
 }
 
 /* GlintCMS overwrites */
