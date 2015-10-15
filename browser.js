@@ -1,20 +1,44 @@
-// router
+/*
+ * modules / dependencies
+ */
 var page = require('page');
+var PageConfig = require('page-config');
+var PageFilemanager = require('page-filemanager');
+var PageUpload = require('page-upload');
+var PageMain = require('page-main');
 
-// routes
-// auth is done completely on the server ;-)
-require('page-filemanager')();
-require('page-upload')();
-require('page-main')();
+/*
+ * variables
+ */
+var root = !module.exports.length;
 
+/**
+ * glintcms application
+ *
+ * @param options Object
+ */
+module.exports = function glintcms(options) {
 
-// initialize page.js router
-page({
-  click: false,
-  dispatch: true,
-  decodeURLComponents : false
-});
+  // get options
+  var o = PageConfig(options);
 
-// initialize socket.io communication
-//var io = window.io = require('glint-socket-io').io;
-//var socket = window.socket = require('glint-socket-io')();
+  // routes
+  // auth is done completely on the server ;-)
+  PageFilemanager(o.filemanager);
+  PageUpload(o.upload);
+  PageMain(o.main);
+
+  // initialize page.js router
+  page(o.browser || {
+      click: false,
+      dispatch: true,
+      decodeURLComponents: false
+    });
+
+  // initialize socket.io communication
+  //var io = window.io = require('glint-socket-io').io;
+  //var socket = window.socket = require('glint-socket-io')();
+
+};
+
+if (root) module.exports();
