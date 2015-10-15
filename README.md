@@ -50,7 +50,8 @@ cp -r node_modules/glintcms-starter-glintcms/datastore/ datastore
 > you can run it as a standalone application like this:
 
 ```javascript
-var glintcms = require('glintcms-starter-glintcms');
+var options = {};
+var glintcms = require('glintcms-starter-glintcms')(options);
 glintcms.listen(process.env.PORT || 3000);
 ```
 
@@ -59,7 +60,8 @@ glintcms.listen(process.env.PORT || 3000);
 ```javascript
 var express = require('express');
 var app = express();
-var glintcms = require('glintcms-starter-glintcms');
+var options = {};
+var glintcms = require('glintcms-starter-glintcms')(options);
 
 app.get('/', function(req, res, next){
   res.send('<h1>my new homepage</h1> check it out: <a href="/cms">GlintCMS</a>');
