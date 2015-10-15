@@ -1,25 +1,20 @@
 {
   "name": "glintcms-starter-glintcms",
-  "version": "1.1.13",
+  "version": "1.2.0",
   "main": "server.js",
   "browser": "browser.js",
   "scripts": {
     "version": "NODE_ENV=production && npm run assets -- -e prod && npm run build",
-
     "cleanup": "rm -rf node_modules/ && rm -rf lib/*/node_modules/",
     "install-www": "find $(pwd)/node_modules -type l -maxdepth 1 | xargs -L 1 bash -c 'cd \"$0\" && pwd && npm install'",
     "link-local": "assets-bundler './lib/*' './node_modules/*' -rf",
-
     "watch": "watchify -t [ envify purge ] -t [brfs] browser.js -o public/build/bundle.js --debug &",
     "minify": "cat public/build/bundle.js | uglifyjs -o public/build/bundle.min.js",
     "assets": "assets-bundler 'node_modules/:module/public' 'public/assets/:module' -rf",
-
     "setup": "npm install assets-bundler && npm run link-local -- -e prod && npm install && npm run build",
     "setup-www": "npm install assets-bundler && npm run link-local -- -e dev && npm install && npm run install-www && npm run build-www",
-
     "build": "npm run link-local -- -e prod && npm run assets -- -e prod && browserify -t envify -g [ uglifyify -x '.js' --ignore '**/public/*' ] browser.js -o public/build/bundle.js",
     "build-www": "npm run link-local -- -e dev && npm run assets -- -e dev && browserify browser.js -o public/build/bundle.js --debug",
-
     "start": "NODE_ENV=production && npm run build && node start",
     "www": "NODE_ENV=development && npm run assets -- -e dev && npm run watch && nodemon -e js,ejs,dot start.js"
   },
