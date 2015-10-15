@@ -25,10 +25,10 @@
     "init": "npm install assets-bundler && npm run prepublish && npm install && npm run install-local",
     "install-local": "ls -d1 $(pwd)/node_modules/{page,widget,wrap}-*/ | xargs -L 1 bash -c 'cd \"$0\" && pwd && npm install'",
     "install-linked": "find $(pwd)/node_modules -type l -maxdepth 1 | xargs -L 1 bash -c 'cd \"$0\" && pwd && npm install'",
-    "link-local": "assets-bundler --src './lib/*' --dest './node_modules/*'",
-    "link-glint": "assets-bundler --src '../glint-*' --dest 'node_modules/glint-*'",
+    "link-local": "assets-bundler './lib/*' './node_modules/*' -rf",
+    "link-glint": "assets-bundler '../glint-*' 'node_modules/glint-*' -rf ",
     "cleanup": "rm -rf node_modules/ && rm -rf lib/*/node_modules/",
-    "assets": "rm -rf public/assets/ && assets-bundler --src node_modules/:module/public --dest public/assets/:module",
+    "assets": "rm -rf public/assets/ && assets-bundler 'node_modules/:module/public' 'public/assets/:module'",
     "build": "npm run assets; if [ \"$NODE_ENV\" == \"development\" ]; then browserify browser.js -o public/build/bundle.js --debug; else browserify -t envify -g [ uglifyify -x '.js' --ignore '**/public/*' ] browser.js -o public/build/bundle.js; fi",
     "watch": "watchify -t [ envify purge ] -t [brfs] browser.js -o public/build/bundle.js --debug &",
     "minify": "cat public/build/bundle.js | uglifyjs -o public/build/bundle.min.js",
@@ -48,7 +48,7 @@
     "wrap-layout"
   ],
   "dependencies": {
-    "assets-bundler": "^1.1.0",
+    "assets-bundler": "^2.0.0",
     "clone": "^1.0.2",
     "compression": "^1.5.0",
     "connect-flash": "^0.1.1",
