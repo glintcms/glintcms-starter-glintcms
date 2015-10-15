@@ -89,7 +89,10 @@ app.listen(process.env.PORT || 3000);
 ```bash
 # change directory into the directory you want `glintcms-starter-glintcms` to be created
 git clone https://github.com/glintcms/glintcms-starter-glintcms && cd glintcms-starter-glintcms
-npm run init
+# setup for production
+npm run setup
+# setup for development
+npm run setup-www
 ```
 
 #### run
@@ -98,11 +101,16 @@ npm run init
 # build it and run it
 npm run build && node start
 
-# or start with automatic restart on file changes
+# or build for development
+npm run build-www
+# and start with automatic restart on file changes
 npm run www
 
 # if you want to run it with a specific port
 export PORT=3000; npm run www
+
+# start with specific options with the substack/subarg synthax
+node start.js --upload [ --get /up* ]
 ```
 
 

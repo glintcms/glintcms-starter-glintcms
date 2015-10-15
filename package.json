@@ -3,37 +3,25 @@
   "version": "1.1.13",
   "main": "server.js",
   "browser": "browser.js",
-  "browserify": {
-    "transform": [
-      [
-        "brfs"
-      ],
-      [
-        "envify",
-        {
-          "_": "purge"
-        }
-      ],
-      [
-        "uglifyify"
-      ]
-    ]
-  },
   "scripts": {
-    "REMprepublish": "npm run link-local",
-    "version": "NODE_ENV=production && npm run assets && npm run build",
-    "init": "npm install assets-bundler && npm run prepublish && npm install && npm run install-local",
-    "install-local": "ls -d1 $(pwd)/node_modules/{page,widget,wrap}-*/ | xargs -L 1 bash -c 'cd \"$0\" && pwd && npm install'",
-    "install-linked": "find $(pwd)/node_modules -type l -maxdepth 1 | xargs -L 1 bash -c 'cd \"$0\" && pwd && npm install'",
-    "link-local": "assets-bundler './lib/*' './node_modules/*' -rf",
-    "link-glint": "assets-bundler '../glint-*' 'node_modules/glint-*' -rf ",
+    "version": "NODE_ENV=production && npm run assets -- -e prod && npm run build",
+
     "cleanup": "rm -rf node_modules/ && rm -rf lib/*/node_modules/",
-    "assets": "rm -rf public/assets/ && assets-bundler 'node_modules/:module/public' 'public/assets/:module'",
-    "build": "npm run assets; if [ \"$NODE_ENV\" == \"development\" ]; then browserify browser.js -o public/build/bundle.js --debug; else browserify -t envify -g [ uglifyify -x '.js' --ignore '**/public/*' ] browser.js -o public/build/bundle.js; fi",
+    "install-www": "find $(pwd)/node_modules -type l -maxdepth 1 | xargs -L 1 bash -c 'cd \"$0\" && pwd && npm install'",
+    "link-local": "assets-bundler './lib/*' './node_modules/*' -rf",
+
     "watch": "watchify -t [ envify purge ] -t [brfs] browser.js -o public/build/bundle.js --debug &",
     "minify": "cat public/build/bundle.js | uglifyjs -o public/build/bundle.min.js",
-    "www": "export NODE_ENV=development && npm run assets && npm run watch && nodemon -e js,ejs,dot start.js",
-    "start": "if [ -z $NODE_ENV ]; then NODE_ENV=production; fi; echo NODE_ENV=$NODE_ENV && npm run build && node start"
+    "assets": "assets-bundler 'node_modules/:module/public' 'public/assets/:module' -rf",
+
+    "setup": "npm install assets-bundler && npm run link-local -- -e prod && npm install && npm run build",
+    "setup-www": "npm install assets-bundler && npm run link-local -- -e dev && npm install && npm run install-www && npm run build-www",
+
+    "build": "npm run link-local -- -e prod && npm run assets -- -e prod && browserify -t envify -g [ uglifyify -x '.js' --ignore '**/public/*' ] browser.js -o public/build/bundle.js",
+    "build-www": "npm run link-local -- -e dev && npm run assets -- -e dev && browserify browser.js -o public/build/bundle.js --debug",
+
+    "start": "NODE_ENV=production && npm run build && node start",
+    "www": "NODE_ENV=development && npm run assets -- -e dev && npm run watch && nodemon -e js,ejs,dot start.js"
   },
   "bundledDependencies": [
     "page-adapter",

@@ -91,7 +91,6 @@ module.exports = function glintcms(options) {
   app.use(pageMain(o.main)); // middleware order: must be after the other pages
 
   app.use(pageFilemanager(o.filemanager));
-  console.log('options', o, o.upload);
   app.use(pageUpload(o.upload));
 
   if (debug.enabled) {
