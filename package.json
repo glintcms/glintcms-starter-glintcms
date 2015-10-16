@@ -1,6 +1,6 @@
 {
   "name": "glintcms-starter-glintcms",
-  "version": "1.2.3",
+  "version": "1.2.4",
   "main": "server.js",
   "browser": "browser.js",
   "scripts": {
