@@ -4,8 +4,9 @@
   "main": "server.js",
   "browser": "browser.js",
   "scripts": {
+    "preinstall": "npm install assets-bundler && npm run link-local -- -e prod",
+    "postinstall": "npm run assets -- -e prod",
     "prepublish": "npm run assets -- -e prod",
-    "preinstall": "npm install assets-bundler && npm run link-local -- -e prod && npm run assets -- -e prod",
     "version": "NODE_ENV=production && npm run assets -- -e prod && npm run build",
     "cleanup": "rm -rf node_modules/ && rm -rf lib/*/node_modules/",
     "assume-unchanged": "git update-index --assume-unchanged datastore/glint/role/7032a580-5c4e-11e5-b149-5bd68197214e.json; git update-index --assume-unchanged datastore/glint/user/7032a580-5c4e-11e5-b149-5bd68197214e.json",
@@ -21,20 +22,6 @@
     "start": "NODE_ENV=production && npm run build && node start",
     "www": "NODE_ENV=development && npm run assets -- -e dev && npm run watch && nodemon -e js,ejs,dot start.js"
   },
-  "bundledDependencies": [
-    "page-adapter",
-    "page-auth",
-    "page-auth-access",
-    "page-config",
-    "page-contact",
-    "page-error",
-    "page-filemanager",
-    "page-is-bot",
-    "page-main",
-    "page-upload",
-    "widget-menu",
-    "wrap-layout"
-  ],
   "dependencies": {
     "assets-bundler": "^2.0.0",
     "clone": "^1.0.2",
