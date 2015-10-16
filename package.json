@@ -4,6 +4,7 @@
   "main": "server.js",
   "browser": "browser.js",
   "scripts": {
+    "prepublish": "npm run assets -- -e prod",
     "version": "NODE_ENV=production && npm run assets -- -e prod && npm run build",
     "cleanup": "rm -rf node_modules/ && rm -rf lib/*/node_modules/",
     "install-www": "find $(pwd)/node_modules -type l -maxdepth 1 | xargs -L 1 bash -c 'cd \"$0\" && pwd && npm install'",
