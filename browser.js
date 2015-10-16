@@ -1,7 +1,7 @@
 /*
  * modules / dependencies
  */
-var page = require('page');
+var page = require('page.js');
 var PageConfig = require('page-config');
 var PageFilemanager = require('page-filemanager');
 var PageUpload = require('page-upload');

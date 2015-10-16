@@ -45,6 +45,16 @@ h6 big {
   color: #5e5e5e !important;
 }
 
+img,
+input,
+textarea,
+code,
+pre,
+h1, h2, h3, h4, h5, h6 {
+  max-width: 100%;
+}
+
+
 a,
 a:visited {
   color: #47e7f7;
@@ -76,6 +86,9 @@ pre {
   white-space: pre;
   word-break: normal;
   word-wrap: normal;
+  width: 0px;
+  max-width: 0px;
+  opacity: 0;
   background-color: rgba(245, 245, 245, 0.9);
 }
 
@@ -86,7 +99,6 @@ pre > code {
 div.item.active pre {
   width: 100%;
 }
-
 
 code {
   color: #ff1025;
@@ -112,6 +124,12 @@ code {
   margin-top: -15px;
   margin-left: -15px;
   display: inline-block;
+}
+
+
+.page-main-left,
+.page-main-right {
+  text-shadow: 0px 0px 5px #888888;
 }
 
 /*************************
@@ -459,10 +477,6 @@ form.dropzone {
   color: #fff;
 }
 
-/*.form-control {*/
-/*color: #fff;*/
-/*}*/
-
 input[type="subject"].form-control,
 input[type="text"].form-control,
 input[type="email"].form-control,
@@ -574,15 +588,6 @@ textarea.form-control {
   }
 }
 
-img,
-input,
-textarea,
-code,
-pre,
-h1, h2, h3, h4, h5, h6 {
-  max-width: 100%
-}
-
 /* GlintCMS overwrites */
 
 .glintcms-block-edit {
@@ -593,6 +598,16 @@ h1, h2, h3, h4, h5, h6 {
 [contenteditable=true] {
   min-height: 16px;
 }
+
+/* Small screens */
+@media (max-width: 500px) {
+
+  .sidenav {
+    top: 70px !important;
+  }
+}
+
+
 
 /* overwrites for screen capturing */
 /*body,*/
