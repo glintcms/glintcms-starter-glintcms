@@ -6,7 +6,6 @@ var favicon = require('serve-favicon');
 var flash = require('connect-flash');
 var cookieParser = require('cookie-parser');
 var compression = require('compression');
-var isBot = require('connect-is-bot');
 
 /**
  * glintcms application
@@ -39,6 +38,8 @@ module.exports = function glintcms(options) {
 
   var pageError = require('page-error');
 
+  var pageIsBot = require('page-is-bot');
+
   // no view engine setup -> all handled by the page modules
   app.use(compression(o.compression)); // middleware order: very early to compress everything. -> huge difference in file size! check network in browser.
 
@@ -61,12 +62,11 @@ module.exports = function glintcms(options) {
   });
 
   app.use(flash(o.flash));
-  app.use(isBot(o.isBot));
   app.use(cookieParser(o.cookieParser));
-
 
   // the important stuff happens from here on! -> page routes
   app.use(o.routes);
+  app.use(pageIsBot(o.isBot));
   app.use(pageAdapter.routes);
 
   app.use(pageAuth(o.auth));  // middleware order: first page middleware
