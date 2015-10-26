@@ -56,7 +56,7 @@
     "glint-widget": "^1.0.2",
     "glint-wrap": "^1.0.2",
     "is-browser": "^2.0.1",
-    "local_modules": "^1.0.5",
+    "local_modules": "^1.0.6",
     "page.js": "^4.13.3",
     "serve-favicon": "^2.2.0",
     "subarg": "^1.0.0",
