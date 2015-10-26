@@ -21,7 +21,7 @@ module.exports = function glintcms(options) {
   var app = express();
   var server = require('http').createServer(app);
 
-  // pages
+  // app, server, session, adapter
   var Adapter = require('glint-adapter');
   var pageAdapter = require('page-adapter')(o.adapter);
 
@@ -29,6 +29,8 @@ module.exports = function glintcms(options) {
   var sessionStore = require('glint-session')(app, sessionAdapter);
   var io = require('glint-socket-io')(server, sessionStore);
 
+  // pages
+  // no i18n
   var pageAuth = require('page-auth');
   var pageAccess = require('page-auth-access');
   var pageMain = require('page-main');
@@ -65,10 +67,6 @@ module.exports = function glintcms(options) {
   app.use(cookieParser(o.cookieParser));
 
   // the important stuff happens from here on! -> page routes
-  app.use(o.routes);
-  app.use(pageIsBot(o.isBot));
-  app.use(pageAdapter.routes);
-
   app.use(pageAuth(o.auth));  // middleware order: first page middleware
 
   var access = pageAccess(o.access);
@@ -83,6 +81,10 @@ module.exports = function glintcms(options) {
       next();
     });
   }
+
+  app.use(o.routes);
+  app.use(pageIsBot(o.isBot));
+  app.use(pageAdapter.routes);
 
   app.get(/^\/$/, function(req, res, next){
     res.redirect('/home');
