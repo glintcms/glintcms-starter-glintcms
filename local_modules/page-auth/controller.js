@@ -188,7 +188,7 @@ exports = module.exports = function authController(o) {
     User.findById(req.user.id, function(err, user) {
       if (err) return next(err);
 
-      user.password = req.body.password;
+      user.changePassword(req.body.password);
 
       user.save(function(err) {
         if (err) return next(err);

@@ -65,36 +65,26 @@ User.gravatar = function(user, size) {
 
 
 // add plugins
-// FIXME grrrrrrrr does not work
-//function gravatar(Model) {
-//  Model.gravatar = function(user, size) {
-//    if (!size) size = 200;
-//    if (!user.email) return 'https://gravatar.com/avatar/?s=' + size + '&d=retro';
-//    var md5 = crypto.createHash('md5').update(user.email).digest('hex');
-//    return 'https://gravatar.com/avatar/' + md5 + '?s=' + size + '&d=retro';
-//  };
-//  return Model;
-//}
-//
-//function toObject(Model) {
-//  var self = this;
-//  Model.toObject = this.toObject = function() {
-//    var obj = {};
-//    var model = self.model;
-//    if (!model) return obj;
-//
-//    Object.keys(model).forEach(function(attribute) {
-//      obj[attribute] = model[attribute];
-//    });
-//    return obj;
-//  };
-//  return Model;
-//}
+function changePassword(Model) {
+  Model.prototype.changePassword = function(newPassword) {
+    this.set({salt: undefined});
+    this.set({password: newPassword});
+  };
+}
+
+function gravatar(Model) {
+  Model.prototype.gravatar = function(size) {
+    if (!size) size = 200;
+    if (!this.email) return 'https://gravatar.com/avatar/?s=' + size + '&d=retro';
+    var md5 = crypto.createHash('md5').update(this.email).digest('hex');
+    return 'https://gravatar.com/avatar/' + md5 + '?s=' + size + '&d=retro';
+  };
+}
 
 User
   .use(Auth())
   .use(Storage(adapter))
-  //.use(toObject)
-  //.use(gravatar)
+  .use(changePassword)
+  .use(gravatar)
 
 exports = module.exports = User;

@@ -19,19 +19,9 @@ function authorization(o) {
   app.use(role());
   app.use(permission());
 
-  // define rules
+  // define rules / load from config, options
   var access = Access();
-  //access(o.rules);
-  access(['POST', 'PUT', 'DELETE'], '/*/glint/role/*', 'manage');
-  access(['POST', 'PUT', 'DELETE'], '/*/glint/config/*', 'manage');
-  access('*', '/upload/*', 'edit');
-  access('GET', '/filemanager/*', 'edit,manage');
-  access('GET', '/translate/*', 'edit,manage');
-  access(['POST', 'PUT', 'DELETE'], '/filemanager/*', 'edit,manage');
-  access('GET', '/ajax/*', '*');
-  access('POST,DELETE,PUT', '/ajax/*', 'edit,insert,delete');
-  access('*', '/admin/*', 'manage');
-  access(['GET', 'POST'], '/*', '*');
+  access(o.rules);
 
   app.use(access.middleware());
 

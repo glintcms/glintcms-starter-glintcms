@@ -67,10 +67,15 @@ module.exports = function glintcms(options) {
   app.use(cookieParser(o.cookieParser));
 
   // the important stuff happens from here on! -> page routes
-  app.use(pageAuth(o.auth));  // middleware order: first page middleware
+
+  var auth = pageAuth(o.auth);
+  app.use(auth.session);  // middleware order: first page middleware
 
   var access = pageAccess(o.access);
-  app.use(access); // middleware order: after pageAuth
+  app.use(access); // middleware order: after pageAuth session
+
+  app.use(auth.user);
+  app.use(auth.oauth);
 
   if (debug.enabled) {
     app.use(function(req, res, next) {

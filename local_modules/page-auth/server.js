@@ -28,6 +28,8 @@ var passportConf = require('./passport');
  * Create Express server and roles.
  */
 var app = express();
+var passportRoutes = express();
+var authenticatonRoutes = express.Router();
 
 function auth(o) {
   o = defaults(o, c);
@@ -35,7 +37,15 @@ function auth(o) {
   var userController = UserController(o);
 
   /**
-   * Express configuration.
+   * Express app (passport session) configuration.
+   */
+    // make sure you have got glint-session middleware called before this module in order to have session support
+  passportRoutes.use(bodyParser.urlencoded({extended: true}));
+  passportRoutes.use(passport.initialize());
+  passportRoutes.use(passport.session());
+
+  /**
+   * Express app (user authentication) configuration.
    */
   app.set('views', path.join(__dirname, 'views'));
   app.set('view engine', 'jade');
@@ -43,9 +53,7 @@ function auth(o) {
   app.use(bodyParser.urlencoded({extended: true}));
   app.use(expressValidator());
   app.use(methodOverride());
-  // make sure you have got glint-session middleware called before this module in order to have session support
-  app.use(passport.initialize());
-  app.use(passport.session());
+
   app.use(flash());
 
   app.use(function(req, res, next) {
@@ -78,35 +86,40 @@ function auth(o) {
   /**
    * OAuth authentication routes. (Sign in)
    */
-  app.get('/auth/instagram', passport.authenticate('instagram'));
-  app.get('/auth/instagram/callback', passport.authenticate('instagram', {failureRedirect: '/login'}), function(req, res) {
+  authenticatonRoutes.get('/auth/instagram', passport.authenticate('instagram'));
+  authenticatonRoutes.get('/auth/instagram/callback', passport.authenticate('instagram', {failureRedirect: '/login'}), function(req, res) {
     res.redirect(req.session.returnTo || '/');
   });
-  app.get('/auth/facebook', passport.authenticate('facebook', {scope: ['email', 'user_location']}));
-  app.get('/auth/facebook/callback', passport.authenticate('facebook', {failureRedirect: '/login'}), function(req, res) {
+  authenticatonRoutes.get('/auth/facebook', passport.authenticate('facebook', {scope: ['email', 'user_location']}));
+  authenticatonRoutes.get('/auth/facebook/callback', passport.authenticate('facebook', {failureRedirect: '/login'}), function(req, res) {
     res.redirect(req.session.returnTo || '/');
   });
-  app.get('/auth/github', passport.authenticate('github'));
-  app.get('/auth/github/callback', passport.authenticate('github', {failureRedirect: '/login'}), function(req, res) {
+  authenticatonRoutes.get('/auth/github', passport.authenticate('github'));
+  authenticatonRoutes.get('/auth/github/callback', passport.authenticate('github', {failureRedirect: '/login'}), function(req, res) {
     res.redirect(req.session.returnTo || '/');
   });
-  app.get('/auth/google', passport.authenticate('google', {scope: 'profile email'}));
-  app.get('/auth/google/callback', passport.authenticate('google', {failureRedirect: '/login'}), function(req, res) {
+  authenticatonRoutes.get('/auth/google', passport.authenticate('google', {scope: 'profile email'}));
+  authenticatonRoutes.get('/auth/google/callback', passport.authenticate('google', {failureRedirect: '/login'}), function(req, res) {
     res.redirect(req.session.returnTo || '/');
   });
-  app.get('/auth/twitter', passport.authenticate('twitter'));
-  app.get('/auth/twitter/callback', passport.authenticate('twitter', {failureRedirect: '/login'}), function(req, res) {
+  authenticatonRoutes.get('/auth/twitter', passport.authenticate('twitter'));
+  authenticatonRoutes.get('/auth/twitter/callback', passport.authenticate('twitter', {failureRedirect: '/login'}), function(req, res) {
     res.redirect(req.session.returnTo || '/');
   });
-  app.get('/auth/linkedin', passport.authenticate('linkedin', {state: 'SOME STATE'}));
-  app.get('/auth/linkedin/callback', passport.authenticate('linkedin', {failureRedirect: '/login'}), function(req, res) {
+  authenticatonRoutes.get('/auth/linkedin', passport.authenticate('linkedin', {state: 'SOME STATE'}));
+  authenticatonRoutes.get('/auth/linkedin/callback', passport.authenticate('linkedin', {failureRedirect: '/login'}), function(req, res) {
     res.redirect(req.session.returnTo || '/');
   });
 
   /**
-   * return the express app.
+   * return the express apps/routes array.
    */
-  return app;
+  return {
+    all: [passportRoutes, app, authenticatonRoutes],
+    session: passportRoutes,
+    user: app,
+    oauth: authenticatonRoutes
+  }
 }
 
 
@@ -114,3 +127,4 @@ function auth(o) {
  * expose auth (express app).
  */
 module.exports = auth;
+
