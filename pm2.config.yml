@@ -4,5 +4,7 @@ apps:
     watch  : false
     env    :
       NODE_ENV: production
+      PORT: 8081
     env_production:
       NODE_ENV: production
+      PORT: 8081
