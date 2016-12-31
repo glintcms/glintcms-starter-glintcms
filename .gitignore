@@ -3,6 +3,8 @@
 **/.DS_Store
 *.log
 
+.pm2
+.vscode
 .runtime
 .idea
 

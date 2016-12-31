@@ -75,7 +75,6 @@ exports = module.exports = function authController(o) {
    * Signup page.
    */
   exports.getSignup = function(req, res, next) {
-    if (req.user) return res.redirect('/');
 
     view(o).signup
       .load(res.locals, function(err, result) {
